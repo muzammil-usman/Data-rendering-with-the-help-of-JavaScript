@@ -494,6 +494,13 @@ var data = [
   },
 ];
 
+function closeModal() {
+  modal.style.display = "none";
+}
+function openModal() {
+  modal.style.display = "flex";
+}
+
 let main = document.getElementById("cont");
 let mainDiv = document.createElement("div");
 mainDiv.setAttribute("class", "mainDiv");
@@ -515,13 +522,23 @@ let boxes = document.createElement("div");
 boxes.setAttribute("class", "boxes");
 mainDiv.appendChild(boxes);
 
+let modal = document.createElement("div");
+modal.setAttribute("class", "modal");
+mainDiv.append(modal);
+
+let closeBtn = document.createElement("button");
+closeBtn.setAttribute("class", "closeBtn");
+closeBtn.setAttribute("onClick", "closeModal()");
+closeBtn.innerText = "Close";
+modal.appendChild(closeBtn);
+
 for (var key in data[0].groups) {
   let group = document.createElement("div");
   group.setAttribute("class", "groupNames");
+  group.setAttribute("onClick", "openModal()");
   group.innerText = data[0].groups[key].name;
   boxes.appendChild(group);
 }
 
-// for (var i in data[0].groups) {
-//   mainDiv.innerHTML += `<div class='groupDiv' onClick="clickedGroup('${data[0].groups[i].name}')">${data[0].groups[i].name}</div>`;
-// }
+// let table = document.createElement("table");
+// modal.appendChild(table);
