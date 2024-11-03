@@ -493,12 +493,19 @@ var data = [
     ],
   },
 ];
+var tbl = document.createElement("table");
 
 function closeModal() {
   modal.style.display = "none";
+  modalParent.style.display = "none";
+  mainDiv.removeChild(modal);
+  tbl.innerText = "";
+  modal.removeChild(tbl);
 }
 function openModal() {
   modal.style.display = "flex";
+  modalParent.style.display = "flex";
+  mainDiv.appendChild(modal);
 }
 
 let main = document.getElementById("cont");
@@ -522,23 +529,63 @@ let boxes = document.createElement("div");
 boxes.setAttribute("class", "boxes");
 mainDiv.appendChild(boxes);
 
+let modalParent = document.createElement("div");
+modalParent.setAttribute("class", "modalParent");
+mainDiv.appendChild(modalParent);
+
 let modal = document.createElement("div");
 modal.setAttribute("class", "modal");
-mainDiv.append(modal);
+modalParent.appendChild(modal);
+
+let btnParent = document.createElement("div");
+btnParent.setAttribute("class", "btnParent");
+modal.appendChild(btnParent);
 
 let closeBtn = document.createElement("button");
 closeBtn.setAttribute("class", "closeBtn");
 closeBtn.setAttribute("onClick", "closeModal()");
 closeBtn.innerText = "Close";
-modal.appendChild(closeBtn);
+btnParent.appendChild(closeBtn);
+
+var thisData;
+
+function clickedGroup(gName) {
+  openModal();
+  var thisData = {};
+  for (var i in data[0].groups) {
+    if (gName === data[0].groups[i].name) {
+      thisData = data[0].groups[i];
+    }
+    console.log(thisData);
+  }
+
+  tbl.setAttribute("class", "table");
+  tbl.innerHTML = `<tr>
+  <th>Name<th>
+  <th>Code<th>
+  <th>Position<th>
+  <th>Played<th>
+  <th>Won<th>
+  <th>Lost<th>
+  <th>Drawn<th>
+  <th>GF<th>
+  <th>GA<th>
+  <th>Points<th>
+  <tr>`;
+  modal.appendChild(tbl);
+
+  for (var key in thisData.standings) {
+    var tr = document.createElement("tr");
+    tr.innerHTML = `<td>${thisData.standings[key].team.name}</td>
+    <td>${thisData.standings[key].team.code}</td>`;
+    tbl.appendChild(tr);
+  }
+}
 
 for (var key in data[0].groups) {
   let group = document.createElement("div");
   group.setAttribute("class", "groupNames");
-  group.setAttribute("onClick", "openModal()");
+  group.setAttribute("onClick", `clickedGroup('${data[0].groups[key].name}')`);
   group.innerText = data[0].groups[key].name;
   boxes.appendChild(group);
 }
-
-// let table = document.createElement("table");
-// modal.appendChild(table);

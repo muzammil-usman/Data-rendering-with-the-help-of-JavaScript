@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 #cont {
+  width: 99vw;
+  height: 100vh;
   background-color: #020f2a;
 }
 
@@ -51,6 +53,16 @@
   }
 }
 
+.modalParent {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
 .modal {
   width: 84%;
   height: 500px;
@@ -59,10 +71,17 @@
   color: black;
   z-index: 1;
   opacity: 1;
-  top: 24%;
+  top: 12%;
   left: 7%;
   display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.btnParent {
+  width: 100%;
+  display: flex;
   justify-content: right;
+  background-color: white;
 }
 
 .closeBtn {
@@ -73,6 +92,14 @@
   &:hover {
     cursor: pointer;
   }
+}
+.table {
+  border: 1px solid transparent;
+  width: 90%;
+  height: 100%;
+  text-align: center;
+  background-color: white;
+  color: #020f2a;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
