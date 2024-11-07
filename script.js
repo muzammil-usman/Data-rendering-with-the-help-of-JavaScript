@@ -558,28 +558,40 @@ function clickedGroup(gName) {
     }
     console.log(thisData);
   }
-
   tbl.setAttribute("class", "table");
-  tbl.innerHTML = `<tr>
-  <th>Name<th>
-  <th>Code<th>
-  <th>Position<th>
-  <th>Played<th>
-  <th>Won<th>
-  <th>Lost<th>
-  <th>Drawn<th>
-  <th>GF<th>
-  <th>GA<th>
-  <th>Points<th>
-  <tr>`;
+  var tHead = document.createElement("tr");
+  tHead.setAttribute("class", "tHead");
+  tHead.innerHTML = `
+  <th>Code</th>
+  <th>Name</th>
+  <th>Position</th>
+  <th>Played</th>
+  <th>Won</th>
+  <th>Lost</th>
+  <th>Drawn</th>
+  <th>GF</th>
+  <th>GA</th>
+  <th>Points</th>
+  `;
   modal.appendChild(tbl);
+  tbl.appendChild(tHead);
 
   for (var key in thisData.standings) {
     var tr = document.createElement("tr");
     tr.innerHTML = `<td>${thisData.standings[key].team.name}</td>
-    <td>${thisData.standings[key].team.code}</td>`;
+    <td>${thisData.standings[key].team.code}</td>
+    <td>${thisData.standings[key].pos}</td>
+    <td>${thisData.standings[key].played}</td>
+    <td>${thisData.standings[key].won}</td>
+    <td>${thisData.standings[key].lost}</td>
+    <td>${thisData.standings[key].drawn}</td>
+    <td>${thisData.standings[key].goals_for}</td>
+    <td>${thisData.standings[key].goals_against}</td>
+    <td>${thisData.standings[key].pts}</td>`;
+    tr.setAttribute("class", "tr");
     tbl.appendChild(tr);
   }
+  console.log(thisData.standings[key].team);
 }
 
 for (var key in data[0].groups) {
